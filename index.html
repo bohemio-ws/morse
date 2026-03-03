@@ -3,17 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MorseCoach | Bohemio Academy</title>
+    <title>MorseCoach Master | Bohemio Academy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400;700&display=swap');
         
         :root {
-            /* Paleta Azul Bohemio (Inspirada en el logotipo) */
             --bg: #020617; 
             --surface: #0f172a; 
             --border: #1e293b; 
-            --accent: #3b82f6; /* Azul brillante del logo */
+            --accent: #3b82f6; 
             --text-muted: #64748b;
         }
 
@@ -28,7 +27,6 @@
             font-family: 'JetBrains Mono', monospace;
         }
 
-        /* Estilo Bento Box */
         .bento-card {
             background-color: var(--surface);
             border: 1px solid var(--border);
@@ -39,7 +37,7 @@
         .bento-card:hover {
             border-color: var(--accent);
             background-color: #111b2e;
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.1);
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.05);
         }
 
         .nav-link {
@@ -66,7 +64,6 @@
             box-shadow: 0 0 10px var(--accent);
         }
 
-        /* Pulsador de Telégrafo */
         .telegraph-key {
             width: 140px;
             height: 140px;
@@ -86,7 +83,6 @@
             color: white;
             transform: scale(0.96);
             box-shadow: 0 0 40px rgba(59, 130, 246, 0.4);
-            border-color: white;
         }
 
         input {
@@ -109,39 +105,67 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Logotipo Animado */
-        .logo-svg {
-            filter: drop-shadow(0 0 5px rgba(59, 130, 246, 0.5));
+        /* Estilos específicos de la Guía Expandida */
+        .guide-h3 {
+            color: var(--accent);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.15em;
+            font-weight: 700;
+            margin: 2rem 0 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
+
+        .guide-h3::after {
+            content: '';
+            flex-grow: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .guide-text {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 1.25rem;
+        }
+
+        .concept-highlight {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
     </style>
 </head>
 <body class="min-h-screen">
 
-    <!-- Navegación Superior -->
+    <!-- HEADER / LOGO / NAV -->
     <header class="border-b border-slate-900 py-6 sticky top-0 bg-slate-950/90 backdrop-blur-md z-50">
         <div class="container mx-auto px-8 flex flex-col md:flex-row justify-between items-center gap-6">
             <div class="flex items-center gap-5">
-                <!-- Representación SVG del Logotipo Bohemio -->
-                <div class="logo-svg w-14 h-14 bg-slate-900 border border-slate-700 rounded-lg flex items-center justify-center">
+                <!-- Logotipo Bohemio SVG -->
+                <div class="w-14 h-14 bg-slate-900 border border-slate-700 rounded-lg flex items-center justify-center shadow-[0_0_15px_rgba(59,130,246,0.3)]">
                     <svg viewBox="0 0 100 100" class="w-10 h-10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Alas Estilizadas -->
                         <path d="M10 40C25 35 45 40 50 55C55 40 75 35 90 40C85 60 70 80 50 85C30 80 15 60 10 40Z" stroke="#3b82f6" stroke-width="2" />
-                        <path d="M20 45C30 42 45 45 50 55C55 45 70 42 80 45" stroke="#3b82f6" stroke-width="1.5" opacity="0.6"/>
-                        <!-- Capucha / Figura -->
                         <path d="M50 30C40 30 35 40 35 50C35 60 42 65 50 65C58 65 65 60 65 50C65 40 60 30 50 30Z" fill="#3b82f6" />
                         <path d="M50 35C45 35 42 40 42 48" stroke="white" stroke-width="2" stroke-linecap="round" />
-                        <!-- Aura Inferior -->
                         <circle cx="50" cy="90" r="8" stroke="#3b82f6" stroke-width="1" stroke-dasharray="2 2" />
                     </svg>
                 </div>
                 <div class="flex flex-col">
                     <span class="text-lg font-bold tracking-tighter uppercase leading-none">Bohemio</span>
                     <span class="text-[9px] text-blue-400 uppercase tracking-[0.4em] font-semibold">Academy Labs</span>
-                    <a href="https://www.bohemio.ws" target="_blank" class="text-[8px] text-slate-500 hover:text-white transition mt-1">www.bohemio.ws</a>
+                    <span class="text-[8px] text-slate-600 mt-1 tracking-widest">www.bohemio.ws</span>
                 </div>
             </div>
-            <nav class="flex gap-10">
-                <button onclick="showScreen('learn')" id="nav-learn" class="nav-link active">Investigación</button>
+            <nav class="flex gap-8">
+                <button onclick="showScreen('guide')" id="nav-guide" class="nav-link active">Guía Maestra</button>
+                <button onclick="showScreen('learn')" id="nav-learn" class="nav-link">Investigación</button>
                 <button onclick="showScreen('practice')" id="nav-practice" class="nav-link">Entrenamiento</button>
                 <button onclick="showScreen('lab')" id="nav-lab" class="nav-link">Laboratorio</button>
             </nav>
@@ -150,86 +174,192 @@
 
     <main class="container mx-auto px-8 py-16 max-w-6xl">
         
-        <!-- PANTALLA: INVESTIGACIÓN (ALFABETO) -->
-        <section id="screen-learn" class="fade-in space-y-16">
-            <div class="max-w-3xl">
-                <h2 class="text-4xl font-light tracking-tight mb-6">Morfología del Código</h2>
-                <p class="text-slate-400 leading-relaxed text-sm max-w-xl">
-                    Bienvenido a la división de investigación de <span class="text-blue-400 font-semibold">Bohemio Academy</span>. 
-                    El sistema Morse es una arquitectura de datos diseñada para la máxima resiliencia.
-                </p>
+        <!-- SECCIÓN 01: GUÍA MAESTRA (DESARROLLADA) -->
+        <section id="screen-guide" class="fade-in space-y-12">
+            <div class="max-w-3xl border-l-2 border-blue-500 pl-6 py-2">
+                <h2 class="text-4xl font-light tracking-tight mb-2">Pedagogía del Código</h2>
+                <p class="text-slate-400 text-sm italic uppercase tracking-widest">Compendio de Investigación - Nivel I y II</p>
             </div>
 
-            <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4" id="alphabet-grid">
-                <!-- Inyectado por JS -->
-            </div>
-        </section>
-
-        <!-- PANTALLA: ENTRENAMIENTO (QUIZ) -->
-        <section id="screen-practice" class="hidden fade-in max-w-2xl mx-auto py-12">
-            <div class="bento-card p-16 text-center shadow-2xl relative overflow-hidden">
-                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-blue-500 to-transparent opacity-50"></div>
-                <span class="text-[10px] uppercase tracking-[0.5em] text-blue-500 block mb-16 font-bold">Recepción de Datos</span>
-                
-                <div id="question-display" class="text-9xl font-thin mb-16 h-28 flex items-center justify-center text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]">?</div>
-                
-                <button id="btn-play-sound" class="mx-auto w-24 h-24 rounded-full border border-slate-700 flex items-center justify-center hover:bg-white hover:text-slate-950 transition-all mb-16 group relative">
-                    <div class="absolute inset-0 rounded-full bg-blue-500/10 animate-ping group-hover:hidden"></div>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                    </svg>
-                </button>
-
-                <div id="options-grid" class="grid grid-cols-2 gap-4">
-                    <!-- Opciones de respuesta -->
-                </div>
-
-                <div id="feedback" class="mt-12 text-[10px] uppercase tracking-[0.3em] h-4 font-bold"></div>
-                
-                <button onclick="nextQuestion()" class="mt-16 text-slate-600 hover:text-white text-[10px] uppercase tracking-widest transition border-b border-transparent hover:border-slate-700 pb-1">Siguiente Frecuencia</button>
-            </div>
-        </section>
-
-        <!-- PANTALLA: LABORATORIO (TRADUCTOR + LLAVE) -->
-        <section id="screen-lab" class="hidden fade-in space-y-12">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                
-                <!-- Codificador -->
-                <div class="bento-card p-10 flex flex-col justify-between">
-                    <div>
-                        <h3 class="text-[10px] uppercase tracking-widest text-blue-400 mb-10 font-bold">Codificador de Mensajes</h3>
-                        <input type="text" id="input-text" placeholder="DATOS DE ENTRADA..." class="w-full text-3xl font-light py-6 outline-none uppercase placeholder:text-slate-800 transition">
-                    </div>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-2 space-y-8">
                     
-                    <div class="mt-10 min-h-[160px] flex flex-col justify-between bg-slate-950/50 p-6 rounded border border-slate-800/50">
-                        <div id="output-morse" class="mono text-3xl text-blue-100 break-all leading-loose tracking-tighter"></div>
-                        <div class="flex gap-8 mt-12">
-                            <button id="btn-play-translation" class="text-[10px] uppercase tracking-widest border border-slate-700 px-8 py-3 hover:bg-white hover:text-slate-950 transition font-bold">Emitir Señal</button>
-                            <button id="btn-copy-morse" class="text-[10px] uppercase tracking-widest text-slate-500 hover:text-white transition">Copiar Código</button>
+                    <!-- BLOQUE 1: LA NATURALEZA DEL SONIDO -->
+                    <div class="bento-card p-8">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-8 h-8 rounded bg-blue-500/10 flex items-center justify-center text-blue-400 font-bold text-xs">01</div>
+                            <h3 class="text-xl font-semibold normal-case tracking-normal">La Arquitectura del Tiempo</h3>
+                        </div>
+                        <p class="guide-text">
+                            El Morse no es un alfabeto visual; es un <span class="concept-highlight">sistema binario de pulsos rítmicos</span>. Su eficiencia reside en la relación matemática de sus componentes. Si el punto (dit) es nuestra unidad atómica, todo el universo Morse se construye a partir de él.
+                        </p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                            <div class="p-4 bg-slate-950/50 rounded border border-slate-800">
+                                <span class="block text-[10px] text-slate-500 uppercase mb-2">Dit (·)</span>
+                                <p class="text-[11px] text-slate-400 mb-2">La unidad fundamental. Un pulso corto y seco.</p>
+                                <span class="text-blue-400 mono font-bold text-sm">1 Unidad</span>
+                            </div>
+                            <div class="p-4 bg-slate-950/50 rounded border border-slate-800">
+                                <span class="block text-[10px] text-slate-500 uppercase mb-2">Dah (−)</span>
+                                <p class="text-[11px] text-slate-400 mb-2">Equivale exactamente a tres dits seguidos.</p>
+                                <span class="text-blue-400 mono font-bold text-sm">3 Unidades</span>
+                            </div>
+                            <div class="p-4 bg-slate-950/50 rounded border border-slate-800">
+                                <span class="block text-[10px] text-slate-500 uppercase mb-2">Silencio Interior</span>
+                                <p class="text-[11px] text-slate-400 mb-2">Espacio entre caracteres de una misma palabra.</p>
+                                <span class="text-blue-400 mono font-bold text-sm">3 Unidades</span>
+                            </div>
+                        </div>
+
+                        <h4 class="guide-h3">Psicoacústica: El Método Koch</h4>
+                        <p class="guide-text">
+                            Propuesto por el psicólogo Ludwig Koch, este método evita el "techo de cristal" de la velocidad. En <span class="concept-highlight">Bohemio Academy</span> no permitimos que el cerebro cuente puntos. Al escuchar a 20 WPM (palabras por minuto), el cerebro procesa el carácter como una <span class="concept-highlight">Gestalt auditiva</span> (una forma completa), igual que reconoces una canción por su ritmo sin contar las notas.
+                        </p>
+                    </div>
+
+                    <!-- BLOQUE 2: OPTIMIZACIÓN Y TRANSMISIÓN -->
+                    <div class="bento-card p-8">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-8 h-8 rounded bg-blue-500/10 flex items-center justify-center text-blue-400 font-bold text-xs">02</div>
+                            <h3 class="text-xl font-semibold normal-case tracking-normal">Estrategias de Recepción Crítica</h3>
+                        </div>
+                        
+                        <h4 class="guide-h3">Comprensión Farnsworth</h4>
+                        <p class="guide-text">
+                            ¿Cómo aprendemos rápido sin colapsar? Aplicamos el <span class="concept-highlight">Espaciado Farnsworth</span>. Mantenemos el sonido de la letra rápido (para que suene como debe sonar en la realidad), pero aumentamos el silencio entre ellas. Esto da tiempo al cerebro para "archivar" la letra recibida antes de que llegue la siguiente, eliminando la ansiedad del operador novel.
+                        </p>
+
+                        <h4 class="guide-h3">El Lenguaje de la Brevedad (Q-Codes)</h4>
+                        <p class="guide-text">
+                            En entornos de baja señal (QRN/QRM), cada pulso cuenta. Los códigos Q permiten resumir frases complejas en solo tres letras. Son la taquigrafía del aire.
+                        </p>
+                        <div class="mt-4 overflow-x-auto bg-slate-950/30 rounded p-2">
+                            <table class="w-full text-left text-xs">
+                                <thead>
+                                    <tr class="text-slate-500 border-b border-slate-800 uppercase">
+                                        <th class="pb-3 px-2">Código</th>
+                                        <th class="pb-3 px-2">Función Pedagógica</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-slate-400">
+                                    <tr class="border-b border-slate-900/50"><td class="py-3 px-2 font-bold text-blue-400">QRS</td><td class="py-3 px-2">"Transmita más despacio". Esencial para el alumno que se siente abrumado.</td></tr>
+                                    <tr class="border-b border-slate-900/50"><td class="py-3 px-2 font-bold text-blue-400">QTH</td><td class="py-3 px-2">"Mi ubicación es...". Establece el contexto geográfico del contacto.</td></tr>
+                                    <tr class="border-b border-slate-900/50"><td class="py-3 px-2 font-bold text-blue-400">QRV</td><td class="py-3 px-2">"Estoy listo". La señal de disposición del investigador.</td></tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
 
-                <!-- Transmisor Manual -->
-                <div class="bento-card p-10 flex flex-col items-center justify-center text-center">
-                    <h3 class="text-[10px] uppercase tracking-widest text-blue-400 mb-16 font-bold">Manipulador Manual (Simulador)</h3>
-                    
-                    <button id="manual-key" class="telegraph-key focus:outline-none">
-                        <span class="text-[10px] uppercase tracking-widest opacity-20 font-bold">Transmit</span>
-                    </button>
-                    
-                    <div class="mt-16 h-12 flex items-center justify-center gap-4" id="manual-sequence-display">
-                        <!-- Secuencia del usuario -->
+                <!-- SIDEBAR: CALIDAD Y PROCEDIMIENTO -->
+                <div class="space-y-6">
+                    <div class="bento-card p-6 border-l-4 border-l-blue-500">
+                        <h4 class="text-[10px] font-bold uppercase tracking-widest text-white mb-4">El Reporte RST: La Ciencia de Calificar</h4>
+                        <p class="text-[11px] text-slate-500 mb-4 leading-relaxed">
+                            Como investigador, debes medir con precisión. El sistema RST es tu métrica de laboratorio:
+                        </p>
+                        <div class="space-y-3">
+                            <div class="bg-slate-950/50 p-3 rounded border border-slate-800">
+                                <div class="flex justify-between text-[10px] mb-1"><span>R - Readability</span><span class="text-blue-400">1 a 5</span></div>
+                                <p class="text-[9px] text-slate-600">¿Qué tan fácil es entender el mensaje?</p>
+                            </div>
+                            <div class="bg-slate-950/50 p-3 rounded border border-slate-800">
+                                <div class="flex justify-between text-[10px] mb-1"><span>S - Strength</span><span class="text-blue-400">1 a 9</span></div>
+                                <p class="text-[9px] text-slate-600">¿Qué tanta potencia tiene la señal recibida?</p>
+                            </div>
+                            <div class="bg-slate-950/50 p-3 rounded border border-slate-800">
+                                <div class="flex justify-between text-[10px] mb-1"><span>T - Tone</span><span class="text-blue-400">1 a 9</span></div>
+                                <p class="text-[9px] text-slate-600">¿Es el sonido una nota musical pura o es rugosa?</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-slate-800 text-center">
+                            <span class="text-[10px] text-blue-400 font-bold">REPORTE PERFECTO: 599</span>
+                        </div>
                     </div>
-                    
-                    <div class="mt-8">
-                        <p class="text-[10px] text-slate-500 uppercase tracking-[0.3em] mb-4">Usa la tecla [Espacio] o pulsa el centro</p>
-                        <button onclick="clearManual()" class="text-[9px] text-slate-700 hover:text-red-400 uppercase tracking-widest transition">Borrar Registro</button>
+
+                    <div class="bento-card p-6">
+                        <h4 class="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-4">Prosigns: El Control del Flujo</h4>
+                        <div class="space-y-4">
+                            <div class="cursor-pointer group" onclick="streamMorse('.-.-.')">
+                                <div class="flex items-center justify-between mb-1">
+                                    <span class="mono text-blue-400 text-xs font-bold">AR (End of Message)</span>
+                                    <i class="text-[10px] text-slate-600">Click to listen</i>
+                                </div>
+                                <p class="text-[10px] text-slate-500 leading-tight">Se usa para indicar que la transmisión de datos ha finalizado satisfactoriamente.</p>
+                            </div>
+                            <div class="cursor-pointer group" onclick="streamMorse('-...-')">
+                                <div class="flex items-center justify-between mb-1">
+                                    <span class="mono text-blue-400 text-xs font-bold">BT (Separator)</span>
+                                    <i class="text-[10px] text-slate-600">Click to listen</i>
+                                </div>
+                                <p class="text-[10px] text-slate-500 leading-tight">El equivalente al punto y aparte. Separa ideas o bloques de información.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-6 text-center bento-card border-dashed">
+                        <p class="text-[11px] text-slate-500 italic leading-relaxed">
+                            "La verdadera maestría no es transmitir rápido, sino ser perfectamente legible en el peor de los ruidos."
+                        </p>
+                        <p class="text-[9px] text-blue-400 mt-2 font-bold uppercase tracking-tighter">— BOHEMIO ACADEMY —</p>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- SECCIÓN 02: INVESTIGACIÓN (ALFABETO) -->
+        <section id="screen-learn" class="hidden fade-in space-y-12">
+            <div class="max-w-3xl">
+                <h2 class="text-4xl font-light tracking-tight mb-4 text-white">Morfología del Código</h2>
+                <p class="text-slate-400 text-sm">Biblioteca de firmas acústicas. Interactúa para análisis.</p>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4" id="alphabet-grid"></div>
+        </section>
+
+        <!-- SECCIÓN 03: ENTRENAMIENTO (QUIZ) -->
+        <section id="screen-practice" class="hidden fade-in max-w-2xl mx-auto py-12">
+            <div class="bento-card p-16 text-center shadow-2xl relative">
+                <span class="text-[10px] uppercase tracking-[0.5em] text-blue-500 block mb-12 font-bold">Simulación de Recepción</span>
+                <div id="question-display" class="text-9xl font-thin mb-16 h-28 flex items-center justify-center text-white">?</div>
+                <button id="btn-play-sound" class="mx-auto w-24 h-24 rounded-full border border-slate-700 flex items-center justify-center hover:bg-white hover:text-slate-950 transition-all mb-16 group">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                    </svg>
+                </button>
+                <div id="options-grid" class="grid grid-cols-2 gap-4"></div>
+                <div id="feedback" class="mt-12 text-[10px] uppercase tracking-[0.3em] h-4 font-bold"></div>
+                <button onclick="nextQuestion()" class="mt-16 text-slate-700 hover:text-white text-[10px] uppercase tracking-widest transition">Cargar Siguiente Carácter</button>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 04: LABORATORIO -->
+        <section id="screen-lab" class="hidden fade-in space-y-12">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div class="bento-card p-10 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-[10px] uppercase tracking-widest text-blue-400 mb-8 font-bold">Analizador de Mensajes</h3>
+                        <input type="text" id="input-text" placeholder="ENTRADA DE TEXTO CRIPTO..." class="w-full text-3xl font-light py-6 outline-none uppercase placeholder:text-slate-800 transition">
+                    </div>
+                    <div class="mt-8 min-h-[160px] flex flex-col justify-between bg-slate-950/50 p-6 rounded border border-slate-800/50">
+                        <div id="output-morse" class="mono text-3xl text-blue-100 break-all leading-loose tracking-tighter"></div>
+                        <div class="flex gap-8 mt-12">
+                            <button id="btn-play-translation" class="text-[10px] uppercase tracking-widest border border-slate-700 px-8 py-3 hover:bg-white hover:text-slate-950 transition font-bold">Emitir Pulso</button>
+                            <button id="btn-copy-morse" class="text-[10px] uppercase tracking-widest text-slate-500 hover:text-white transition">Copiar Datos</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="bento-card p-10 flex flex-col items-center justify-center text-center">
+                    <h3 class="text-[10px] uppercase tracking-widest text-blue-400 mb-16 font-bold">Manipulador Manual de Señal</h3>
+                    <button id="manual-key" class="telegraph-key focus:outline-none"><span class="text-[10px] uppercase tracking-widest opacity-20 font-bold">Signal</span></button>
+                    <div class="mt-16 h-12 flex items-center justify-center gap-4" id="manual-sequence-display"></div>
+                    <div class="mt-8">
+                        <p class="text-[10px] text-slate-600 uppercase tracking-widest mb-4">Control por [Espacio] o Tacto</p>
+                        <button onclick="clearManual()" class="text-[9px] text-slate-800 hover:text-red-400 uppercase tracking-widest transition">Borrar Buffer</button>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <script>
@@ -251,29 +381,20 @@
             if (audio.state === 'suspended') audio.resume();
             const osc = audio.createOscillator();
             const g = audio.createGain();
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(freq, audio.currentTime);
+            osc.type = 'sine'; osc.frequency.setValueAtTime(freq, audio.currentTime);
             g.gain.setValueAtTime(0, audio.currentTime);
             g.gain.linearRampToValueAtTime(0.2, audio.currentTime + 0.005);
             g.gain.setValueAtTime(0.2, audio.currentTime + (duration/1000) - 0.005);
             g.gain.linearRampToValueAtTime(0, audio.currentTime + (duration/1000));
-            osc.connect(g);
-            g.connect(audio.destination);
-            osc.start();
-            osc.stop(audio.currentTime + (duration/1000));
+            osc.connect(g); g.connect(audio.destination);
+            osc.start(); osc.stop(audio.currentTime + (duration/1000));
         }
 
         async function streamMorse(code) {
             for (let bit of code) {
-                if (bit === '.') {
-                    emit(unit);
-                    await new Promise(r => setTimeout(r, unit * 2));
-                } else if (bit === '-') {
-                    emit(unit * 3);
-                    await new Promise(r => setTimeout(r, unit * 4));
-                } else if (bit === ' ') {
-                    await new Promise(r => setTimeout(r, unit * 3));
-                }
+                if (bit === '.') { emit(unit); await new Promise(r => setTimeout(r, unit * 2.2)); }
+                else if (bit === '-') { emit(unit * 3); await new Promise(r => setTimeout(r, unit * 4.2)); }
+                else if (bit === ' ') { await new Promise(r => setTimeout(r, unit * 3)); }
             }
         }
 
@@ -283,6 +404,7 @@
             document.getElementById(`screen-${id}`).classList.remove('hidden');
             document.getElementById(`nav-${id}`).classList.add('active');
             if (id === 'practice') nextQuestion();
+            if (id === 'learn') loadAlphabet();
         }
 
         function loadAlphabet() {
@@ -292,10 +414,7 @@
                 if (char === ' ') return;
                 const card = document.createElement('div');
                 card.className = "bento-card p-6 text-center cursor-pointer hover:bg-blue-900/10 active:scale-95";
-                card.innerHTML = `
-                    <div class="text-xl font-light mb-3 text-slate-100">${char}</div>
-                    <div class="mono text-[10px] text-blue-400 font-bold">${code}</div>
-                `;
+                card.innerHTML = `<div class="text-xl font-light mb-3 text-slate-100">${char}</div><div class="mono text-[10px] text-blue-400 font-bold">${code}</div>`;
                 card.onclick = () => streamMorse(code);
                 grid.appendChild(card);
             });
@@ -319,9 +438,7 @@
             options.forEach(opt => {
                 const b = document.createElement('button');
                 b.className = "p-5 bento-card text-xs font-bold tracking-widest hover:bg-white hover:text-slate-950 transition-all uppercase";
-                b.innerText = opt;
-                b.onclick = () => evaluate(opt);
-                grid.appendChild(b);
+                b.innerText = opt; b.onclick = () => evaluate(opt); grid.appendChild(b);
             });
             document.getElementById('btn-play-sound').onclick = () => streamMorse(code);
             streamMorse(code);
@@ -329,14 +446,11 @@
 
         function evaluate(choice) {
             const fb = document.getElementById('feedback');
-            const q = document.getElementById('question-display');
-            q.innerText = targetChar;
+            document.getElementById('question-display').innerText = targetChar;
             if (choice === targetChar) {
-                fb.innerText = "VERIFICADO ✓";
-                fb.className = "mt-12 text-[10px] uppercase tracking-[0.3em] h-4 text-blue-400 font-bold";
+                fb.innerText = "SINCRO VERIFICADA ✓"; fb.className = "mt-12 text-[10px] uppercase tracking-[0.3em] h-4 text-blue-400 font-bold";
             } else {
-                fb.innerText = "ERROR DE RECEPCIÓN ✗";
-                fb.className = "mt-12 text-[10px] uppercase tracking-[0.3em] h-4 text-red-500 font-bold";
+                fb.innerText = "ERROR EN RECEPCIÓN ✗"; fb.className = "mt-12 text-[10px] uppercase tracking-[0.3em] h-4 text-red-500 font-bold";
             }
         }
 
@@ -345,9 +459,7 @@
         inTxt.addEventListener('input', (e) => {
             const val = e.target.value.toUpperCase();
             let res = '';
-            for (let c of val) {
-                if (DATA_MORSE[c]) res += DATA_MORSE[c] + ' ';
-            }
+            for (let c of val) { if (DATA_MORSE[c]) res += DATA_MORSE[c] + ' '; }
             outMorse.innerText = res.trim();
         });
 
@@ -355,20 +467,13 @@
         document.getElementById('btn-copy-morse').onclick = () => {
             const t = outMorse.innerText;
             const temp = document.createElement("textarea");
-            document.body.appendChild(temp);
-            temp.value = t;
-            temp.select();
-            document.execCommand("copy");
-            document.body.removeChild(temp);
-            const btn = document.getElementById('btn-copy-morse');
-            btn.innerText = "COPIADO";
-            setTimeout(() => btn.innerText = "COPIAR CÓDIGO", 2000);
+            document.body.appendChild(temp); temp.value = t; temp.select(); document.execCommand("copy"); document.body.removeChild(temp);
+            const btn = document.getElementById('btn-copy-morse'); btn.innerText = "COPIADO";
+            setTimeout(() => btn.innerText = "COPIAR", 2000);
         };
 
         const keyBtn = document.getElementById('manual-key');
-        let startTime = 0;
-        let sequence = "";
-        let currentOsc = null;
+        let startTime = 0; let sequence = ""; let currentOsc = null;
 
         function startPulse() {
             if (audio.state === 'suspended') audio.resume();
@@ -376,23 +481,17 @@
             startTime = Date.now();
             currentOsc = audio.createOscillator();
             const g = audio.createGain();
-            currentOsc.type = 'sine';
-            currentOsc.frequency.setValueAtTime(freq, audio.currentTime);
-            g.gain.setValueAtTime(0.1, audio.currentTime);
-            currentOsc.connect(g);
-            g.connect(audio.destination);
-            currentOsc.start();
-            keyBtn.classList.add('key-active');
+            currentOsc.type = 'sine'; currentOsc.frequency.setValueAtTime(freq, audio.currentTime);
+            g.gain.setValueAtTime(0.1, audio.currentTime); currentOsc.connect(g); g.connect(audio.destination);
+            currentOsc.start(); keyBtn.classList.add('key-active');
         }
 
         function endPulse() {
             if (startTime === 0) return;
             const dur = Date.now() - startTime;
             if (currentOsc) { currentOsc.stop(); currentOsc.disconnect(); currentOsc = null; }
-            startTime = 0;
-            keyBtn.classList.remove('key-active');
-            sequence += dur < 190 ? '.' : '-';
-            refreshManual();
+            startTime = 0; keyBtn.classList.remove('key-active');
+            sequence += dur < 190 ? '.' : '-'; refreshManual();
         }
 
         function refreshManual() {
@@ -401,15 +500,13 @@
             for(let s of sequence) {
                 const span = document.createElement('span');
                 span.className = "text-3xl font-light text-blue-400 mono";
-                span.innerText = s;
-                display.appendChild(span);
+                span.innerText = s; display.appendChild(span);
             }
             const trans = REVERSE_DATA[sequence];
             if (trans) {
                 const tag = document.createElement('span');
                 tag.className = "ml-6 px-3 py-1 bg-blue-500 text-white text-[10px] font-bold rounded uppercase animate-pulse";
-                tag.innerText = trans;
-                display.appendChild(tag);
+                tag.innerText = trans; display.appendChild(tag);
             }
         }
 
@@ -427,7 +524,7 @@
         });
         window.addEventListener('keyup', (e) => { if (e.code === 'Space') endPulse(); });
 
-        window.onload = loadAlphabet;
+        window.onload = () => { showScreen('guide'); };
     </script>
 </body>
 </html>
