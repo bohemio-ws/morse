@@ -32,9 +32,15 @@ welcome.append(hero,steps,hint);
 const guide=document.getElementById("screen-guide");
 const path=document.createElement("section");path.className="academy-path";path.innerHTML='<h3>Tu itinerario de aprendizaje</h3><ol><li>Aprende a distinguir un punto de una raya y a reconocer los silencios.</li><li>Escucha letras individuales y repítelas sin mirar el alfabeto.</li><li>Recibe grupos cortos y anota lo que oyes.</li><li>Entra en la estación, el aeródromo o el barco y resuelve mensajes.</li><li>Practica la transmisión con el manipulador; mejora claridad antes que velocidad.</li></ol>';
 if(guide)guide.prepend(path);
-function go(id){if(typeof showScreen==="function")showScreen(id);welcome.hidden=id!=="guide";if(id==="guide"){hero.hidden=false;steps.hidden=false;hint.hidden=false}else{hero.hidden=true;steps.hidden=true;hint.hidden=true}window.scrollTo({top:0,behavior:"smooth"})}
+function go(id){
+ const home=id==="home";
+ if(typeof showScreen==="function")showScreen(home?"guide":id);
+ if(home){guide.classList.add("hidden");document.querySelectorAll(".nav-link").forEach(b=>b.classList.remove("active"));document.getElementById("nav-home").classList.add("active")}
+ welcome.hidden=!home;hero.hidden=!home;steps.hidden=!home;hint.hidden=!home;
+ window.scrollTo({top:0,behavior:"smooth"});
+}
 hero.querySelector("button").addEventListener("click",()=>go("learn"));
 steps.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>go(b.dataset.go)));
-document.querySelectorAll("header nav button").forEach(b=>b.addEventListener("click",()=>{const id=b.id.replace("nav-","");welcome.hidden=id!=="guide";hero.hidden=id!=="guide";steps.hidden=id!=="guide";hint.hidden=id!=="guide"}));
-go("guide");
+document.querySelectorAll("header nav button").forEach(b=>b.addEventListener("click",e=>{const id=b.id.replace("nav-","");if(id==="home"){e.preventDefault();go("home")}else{welcome.hidden=true;hero.hidden=true;steps.hidden=true;hint.hidden=true}}));
+go("home");
 })();
