@@ -87,6 +87,26 @@ if(lab){
  next.onclick=()=>{const keys=Object.keys(alphabet).filter(c=>c!==" ");letter=keys[Math.floor(Math.random()*keys.length)];target.textContent=letter;hint.textContent="Transmite la letra con el manipulador y pulsa Comprobar.";if(typeof clearManual==="function")clearManual()};
  check.onclick=()=>{if(!letter){hint.textContent="Pulsa Nueva letra.";return}const received=typeof sequence==="string"?sequence:"";hint.textContent=received===alphabet[letter]?"¡Correcto! "+letter+" = "+received:"Tu secuencia: "+(received||"vacía")+" · esperado: "+alphabet[letter]};
 }
+
+// Tres escenarios históricos: estaciones ferroviarias, radio aeronáutica y señales marítimas.
+if(document.getElementById("screen-guide")){
+ const history=el("section","bento-card p-8 mt-8");
+ history.id="morse-history";
+ history.append(el("h3","text-2xl font-semibold mb-4","El Morse en tres mundos: trenes, aviación y mar"));
+ const intro=el("p","guide-text","Un mismo lenguaje de puntos y rayas conectó estaciones de ferrocarril, operadores de radio aeronáutica y barcos. Cada escenario empleaba equipos y procedimientos diferentes.");
+ history.append(intro);
+ const scenes=[
+  ["🚂","Despacho telegráfico ferroviario (siglo XIX)","El telégrafo permitió transmitir avisos y órdenes entre estaciones a distancia. Los operadores aprendían a reconocer el ritmo de los impulsos y a transcribir mensajes con precisión.","Actividad: escucha una serie de cinco caracteres y cópiala en Entrenamiento."],
+  ["✈","Aeródromos y aviación militar (primera mitad del siglo XX)","Durante la Segunda Guerra Mundial, el Morse fue ampliamente utilizado en enlaces de radiotelegrafía aeronáutica y en determinadas ayudas de navegación e identificación. No toda comunicación aérea se hacía en Morse: también se empleaba radiotelefonía de voz.","Actividad: identifica de oído grupos de letras como si fueran distintivos de estación; después practica la copia escrita."],
+  ["⚓","Buques y señales luminosas","En el mar se utilizó Morse por radiotelegrafía y también mediante destellos de luz, por ejemplo con lámparas de señales. La luz encendida durante un intervalo corto representa un punto; durante uno largo, una raya. El empleo de señales luminosas requiere tener en cuenta la visibilidad y los procedimientos aplicables.","Actividad: observa la señal SOS (... --- ...) y compara sus pulsos cortos y largos."]
+ ];
+ for(const [emoji,title,body,activity] of scenes){
+  const card=el("div","p-5 my-4 rounded border border-amber-800/30");
+  card.append(el("h4","text-lg font-semibold mb-2",emoji+" "+title),el("p","guide-text",body),el("p","guide-text",activity));history.append(card);
+ }
+ history.append(el("p","guide-text","Contexto histórico educativo: las comunicaciones marítimas modernas de socorro emplean principalmente sistemas GMDSS/SMSSM; esta práctica de Morse no autoriza ni sustituye procedimientos operativos actuales."));
+ const guide=document.getElementById("screen-guide");guide.append(history);
+}
 const guide=document.getElementById("screen-guide");
 if(guide){
  const box=el("article","bento-card p-8");
