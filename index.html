@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Código Morse | Bohemio Academy</title>
+    <title>Escuela de Morse · Bohemio Academy</title>
+    <link rel="icon" href="https://bohemio.ws/favicon.ico" sizes="any">
+    <meta name="theme-color" content="#50341f">
     <meta name="description" content="Aprende código Morse internacional en castellano: manual, traductores, audio y ejercicios prácticos gratuitos.">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -150,22 +152,15 @@
     <header class="border-b border-slate-900 py-6 sticky top-0 bg-slate-950/90 backdrop-blur-md z-50">
         <div class="container mx-auto px-8 flex flex-col md:flex-row justify-between items-center gap-6">
             <div class="flex items-center gap-5">
-                <!-- Logotipo Bohemio SVG -->
-                <div class="w-14 h-14 bg-slate-900 border border-slate-700 rounded-lg flex items-center justify-center shadow-[0_0_15px_rgba(59,130,246,0.3)]">
-                    <svg viewBox="0 0 100 100" class="w-10 h-10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M10 40C25 35 45 40 50 55C55 40 75 35 90 40C85 60 70 80 50 85C30 80 15 60 10 40Z" stroke="#3b82f6" stroke-width="2" />
-                        <path d="M50 30C40 30 35 40 35 50C35 60 42 65 50 65C58 65 65 60 65 50C65 40 60 30 50 30Z" fill="#3b82f6" />
-                        <path d="M50 35C45 35 42 40 42 48" stroke="white" stroke-width="2" stroke-linecap="round" />
-                        <circle cx="50" cy="90" r="8" stroke="#3b82f6" stroke-width="1" stroke-dasharray="2 2" />
-                    </svg>
-                </div>
+                <!-- Identidad tipográfica temporal: sustituir por logotipo oficial verificable -->
+                <div class="academy-brand-symbol" aria-hidden="true">4∞</div>
                 <div class="flex flex-col">
                     <span class="text-lg font-bold tracking-tighter uppercase leading-none">Bohemio</span>
-                    <span class="text-[9px] text-blue-400 uppercase tracking-[0.4em] font-semibold">Academy Labs</span>
-                    <span class="text-[8px] text-slate-600 mt-1 tracking-widest">www.bohemio.ws</span>
+                    <span class="text-[9px] text-blue-400 uppercase tracking-[0.4em] font-semibold">Academy · Escuela Morse</span>
+                    <span class="text-[8px] text-slate-600 mt-1 tracking-widest">Aprende escuchando y practicando</span>
                 </div>
             </div>
-            <nav class="flex gap-8">
+            <nav class="flex gap-8" aria-label="Secciones del curso">
                 <button onclick="showScreen('guide')" id="nav-guide" class="nav-link active">Manual</button>
                 <button onclick="showScreen('learn')" id="nav-learn" class="nav-link">Alfabeto</button>
                 <button onclick="showScreen('practice')" id="nav-practice" class="nav-link">Entrenamiento</button>
@@ -175,6 +170,7 @@
     </header>
 
     <main class="container mx-auto px-8 py-16 max-w-6xl">
+        <div id="academy-welcome"></div>
         
         <!-- SECCIÓN 01: GUÍA MAESTRA (DESARROLLADA) -->
         <section id="screen-guide" class="fade-in space-y-12">
@@ -520,7 +516,7 @@
         keyBtn.addEventListener('touchend', endPulse);
 
         window.addEventListener('keydown', (e) => {
-            if (e.code === 'Space' && !e.repeat && document.activeElement.tagName !== 'INPUT') {
+            if (e.code === 'Space' && !e.repeat && !['INPUT','TEXTAREA','SELECT','BUTTON'].includes(document.activeElement.tagName) && !document.activeElement.isContentEditable) {
                 e.preventDefault(); startPulse();
             }
         });
@@ -532,5 +528,6 @@
     <!-- Extensiones didácticas Bohemio Academy: traductor inverso y dictados -->
     <script src="academy-extension.js?v=20261019-1808"></script>
     <script src="historical-simulators.js?v=20261019-1808"></script>
+    <script src="learning-experience.js?v=20261019-1845"></script>
 </body>
 </html>
