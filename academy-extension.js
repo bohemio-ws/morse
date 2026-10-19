@@ -17,8 +17,7 @@ if(lab){
  input.addEventListener("input",()=>output.textContent=decode(input.value));
  const keys=el("div","flex flex-wrap gap-3 mt-3");
  for(const [symbol,label] of [[".","● Punto"],["-","▬ Raya"],[" ","Separar letra"],[" / ","Separar palabra"]]){const b=el("button","bento-card p-3",label);b.type="button";b.addEventListener("click",()=>{input.value+=symbol;output.textContent=decode(input.value);input.focus()});keys.append(b)}
- box.append(keys);
- box.append(input,output);lab.append(box);
+ box.append(input,keys,output);lab.append(box);
 }
 const practice=document.getElementById("screen-practice");
 if(practice){
