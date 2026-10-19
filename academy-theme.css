@@ -1,30 +1,43 @@
-/* Bohemio Academy · diseño adaptable 2026 */
-:root{--bg:#07111f;--surface:#101f33;--border:#2b4058;--accent:#65b8ff;--text-muted:#b2c3d6}
+/* BOHEMIO MORSE — Sala de telégrafos · estética ferroviaria histórica */
+:root{--bg:#251c14;--surface:#f3e8cd;--border:#b99a6d;--accent:#86512b;--text-muted:#66513a}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{background:radial-gradient(circle at 75% 0%,#152b48 0%,#07111f 52%) fixed;color:#f5f8fc}
-header{position:sticky;top:0;z-index:50;background:rgba(7,17,31,.95)!important;border-bottom:1px solid #2b4058!important;backdrop-filter:blur(12px)}
-header>.container{max-width:1180px;padding:12px 20px;gap:16px}
-header nav{display:flex;flex-wrap:wrap;justify-content:center;gap:8px!important}
-.nav-link{border:1px solid #2c4561;border-radius:10px;padding:11px 13px;font-size:12px;letter-spacing:.04em;color:#d1e0ef;background:#10243a}
-.nav-link.active,.nav-link:hover{background:#1e4972;border-color:#72baff;color:#fff}
-.nav-link.active:after{display:none}
-main.container{max-width:1160px;padding:30px 18px 60px}
-#screen-guide,#screen-learn,#screen-practice,#screen-lab{max-width:100%}
-#screen-guide>div:first-child{background:linear-gradient(120deg,#123456,#0b1b30);border:1px solid #345575;border-left:4px solid #65b8ff;border-radius:16px;padding:25px;margin-bottom:24px}
-#screen-guide>div:first-child h2{font-size:clamp(26px,4vw,42px);font-weight:700}
-.bento-card{background:#102137;border:1px solid #30465e;border-radius:16px;box-shadow:0 6px 22px #0002;overflow-wrap:anywhere}
-.bento-card:hover{background:#132840;border-color:#538bb9}
-.guide-text{font-size:15px;color:#c6d5e5;line-height:1.75}
-.guide-h3{color:#8bcaff;font-size:13px}
-#screen-guide>article{margin-top:28px;max-width:100%;padding:clamp(18px,3vw,34px)}
-#screen-guide>article h4{color:#fff;font-size:16px}
-#screen-guide>article p{max-width:78ch}
+body{color:#32251a;background-color:#2a2119;background-image:linear-gradient(90deg,#1e160f55 0 3px,transparent 3px 90px),repeating-linear-gradient(0deg,#ffffff06 0 2px,#00000012 3px 5px,transparent 6px 65px),radial-gradient(ellipse at 50% 5%,#866443 0%,#513a27 47%,#241911 100%);background-attachment:fixed;font-family:Georgia,'Times New Roman',serif}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background:linear-gradient(90deg,#100b08b8 0 8%,transparent 20% 80%,#100b08b8 92% 100%),repeating-linear-gradient(90deg,transparent 0 22%,#0002 22.1% 22.3%,transparent 22.4% 44%);opacity:.55}
+header{position:sticky;top:0;z-index:50;background:#2c2119ed!important;border-bottom:4px solid #a47b45!important;box-shadow:0 5px 18px #0006}
+header>.container{max-width:1180px;padding:12px 18px;gap:14px}
+header span,header button{color:#f3e4c6!important}
+header nav{display:flex;flex-wrap:wrap;gap:8px!important;justify-content:center}
+header .nav-link{font-family:Georgia,serif;letter-spacing:.03em;text-transform:none;font-size:15px;padding:10px 15px;border:1px solid #a27d51;border-radius:4px;background:#443124;color:#f8e8c8}
+header .nav-link.active,header .nav-link:hover{background:#e8d3a9;color:#38271a!important;border-color:#f1d9a4}
+header .nav-link.active:after{display:none}
+main.container{max-width:1140px;margin:26px auto 55px;padding:clamp(16px,3vw,38px);background:linear-gradient(#f9efd7ed,#e7d4acef),repeating-linear-gradient(0deg,#754e1610 0 1px,transparent 2px 7px);border:9px solid #5b3a24;outline:2px solid #c79a5b;box-shadow:0 18px 60px #000b, inset 0 0 0 2px #a77c4c;border-radius:5px}
+main h2,main h3,main h4{font-family:Georgia,'Times New Roman',serif!important;color:#4a2e1a!important;letter-spacing:0!important}
+main h2{font-size:clamp(28px,4vw,45px)!important;font-weight:700!important}
+main p,main span,main li{color:#4e3c2c}
+main .bento-card{background:linear-gradient(140deg,#fff9e9,#ecddbd);border:1px solid #b89a72;border-radius:5px;box-shadow:0 3px 9px #60452622;transition:border-color .15s}
+main .bento-card:hover{background:linear-gradient(140deg,#fff9e9,#ecddbd);border-color:#8e6238;box-shadow:0 3px 9px #60452633}
+main .guide-text{color:#574530!important;font-size:16px;line-height:1.75}
+main .guide-h3{color:#714520!important;font-size:15px;letter-spacing:.04em!important;text-transform:none}
+main .concept-highlight{color:#4a2c19}
+main .text-white,main .text-blue-400,main .text-blue-200,main .text-slate-400,main .text-slate-500,main .text-slate-600{color:#523821!important}
+main .bg-slate-950\/50,main .bg-slate-950,main .bg-slate-900,main .bg-slate-800{background:#ead8b6!important}
+main .border-slate-800,main .border-slate-700{border-color:#b79a73!important}
+#screen-guide>div:first-child{background:linear-gradient(115deg,#f9efcf,#ead4a7);border:2px solid #b28a55;border-left:8px solid #7b4c2b;border-radius:3px;padding:24px;margin-bottom:25px;max-width:none}
+#screen-guide>div:first-child p{color:#765334!important;letter-spacing:.04em}
+#screen-guide>article{margin-top:28px;padding:clamp(18px,3vw,35px)}
+#screen-guide>article h4{font-size:18px!important;margin-top:22px}
+#screen-guide>article p{max-width:80ch}
 #screen-guide .grid{min-width:0}
-button{touch-action:manipulation}
-button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid #8bcaff;outline-offset:3px}
-textarea,input{max-width:100%;font-size:16px}
-textarea{background:#08182a!important;border:1px solid #46617c!important;border-radius:12px;min-height:105px}
-#screen-practice input:not([type=range]),#screen-lab input:not([type=range]){padding:12px;border:1px solid #46617c!important;border-radius:10px;background:#09182a!important}
-#screen-practice button,#screen-lab button{cursor:pointer}
-@media(max-width:767px){header>.container{align-items:stretch}header>.container>div:first-child{justify-content:center}header nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%}.nav-link{min-height:44px;font-size:11px}main.container{padding:20px 12px 50px}#screen-guide>.grid{display:block}#screen-guide>.grid>div{margin-bottom:18px}#screen-guide .bento-card{padding:20px!important}#screen-guide>div:first-child{padding:18px}#screen-guide .guide-text{font-size:15px}.telegraph-key{width:128px;height:128px}}
+main button{cursor:pointer;touch-action:manipulation}
+main button:not(.telegraph-key){border:1px solid #966e3d!important;background:#ead2a4!important;color:#392818!important;border-radius:5px!important;font-family:Georgia,serif!important}
+main button:hover:not(.telegraph-key){background:#d9b87d!important}
+main input:not([type=range]),main textarea{color:#2e2318!important;background:#fff9ea!important;border:1px solid #ad8c5e!important;border-radius:4px!important;padding:12px;font-size:16px;max-width:100%}
+main input::placeholder,main textarea::placeholder{color:#866f53}
+main input[type=range]{accent-color:#83512a}
+.telegraph-key{position:relative;width:155px;height:155px;border-radius:50%!important;border:9px ridge #aa773b!important;background:radial-gradient(circle at 35% 28%,#e9c788,#aa763b 45%,#4b2f1d 72%)!important;box-shadow:inset 0 0 0 7px #342319,0 9px 18px #3a241b66;touch-action:none}
+.telegraph-key:before{content:"";position:absolute;top:17%;left:46%;width:13px;height:58%;background:linear-gradient(90deg,#42291b,#c49a54,#4a2b17);border-radius:6px;transform:rotate(-22deg);pointer-events:none}
+.telegraph-key:after{content:"";position:absolute;top:8%;left:24%;width:45px;height:45px;background:radial-gradient(circle at 35% 25%,#2e241d,#100c09);border:5px solid #8e693e;border-radius:50%;box-shadow:0 3px 5px #0007;pointer-events:none}
+.telegraph-key:active,.telegraph-key.key-active{filter:brightness(1.15);transform:translateY(3px)}
+button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid #9d5c21;outline-offset:3px}
+@media(max-width:767px){header>.container{align-items:stretch}header>.container>div:first-child{justify-content:center}header nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%}header .nav-link{min-height:44px;padding:9px 7px;font-size:13px}main.container{margin:10px 7px 30px;padding:15px;border-width:5px}#screen-guide>.grid{display:block}#screen-guide>.grid>div{margin-bottom:15px}#screen-guide .bento-card{padding:19px!important}#screen-guide>div:first-child{padding:17px}main .guide-text{font-size:15px}.telegraph-key{width:135px;height:135px}}
