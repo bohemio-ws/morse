@@ -3,7 +3,7 @@
 (function(){
 const alphabet=DATA_MORSE;
 const reverse=Object.fromEntries(Object.entries(alphabet).filter(([c])=>c!==" ").map(([c,v])=>[v,c]));
-const decode=s=>String(s).trim().split(/\s*\/\s*/).map(w=>w.trim().split(/\s+/).filter(Boolean).map(c=>reverse[c]||"□").join("")).join(" ");
+const decode=s=>String(s).trim().replace(/[·•]/g,".").replace(/[−–—_]/g,"-").replace(/\\/g,"/").split(/\s*\/\s*/).map(w=>w.trim().split(/\s+/).filter(Boolean).map(c=>reverse[c]||"□").join("")).join(" ");
 const encode=s=>String(s).toUpperCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").split("").map(c=>alphabet[c]||"").filter(Boolean).join(" ");
 function el(tag,cls,content){const x=document.createElement(tag);x.className=cls||"";if(content!==undefined)x.textContent=content;return x}
 const lab=document.getElementById("screen-lab");
@@ -14,7 +14,7 @@ if(lab){
  const input=el("textarea","w-full p-4 rounded bg-slate-950 text-white mono border border-slate-700");
  input.rows=3;input.placeholder="... --- ... / .... --- .-.. .-";input.setAttribute("aria-label","Código Morse");
  const output=el("p","mono text-xl text-blue-200 mt-4");output.setAttribute("aria-live","polite");
- input.addEventListener("input",()=>output.textContent=decode(input.value));
+ input.addEventListener("input",()=>output.textContent=decode(input.value));\n const keys=el("div","flex flex-wrap gap-3 mt-3");\n for(const [symbol,label] of [[".","● Punto"],["-","▬ Raya"],[" ","Separar letra"],[" / ","Separar palabra"]]){const b=el("button","bento-card p-3",label);b.type="button";b.addEventListener("click",()=>{input.value+=symbol;output.textContent=decode(input.value);input.focus()});keys.append(b)}\n box.append(keys);
  box.append(input,output);lab.append(box);
 }
 const practice=document.getElementById("screen-practice");
@@ -33,7 +33,7 @@ if(practice){
  const newBtn=el("button","bento-card p-3","Nueva serie"),repeatBtn=el("button","bento-card p-3","Repetir audio"),checkBtn=el("button","bento-card p-3","Comprobar");
  buttons.append(newBtn,repeatBtn,checkBtn);box.append(speedLabel,speed,field,buttons,status,progress);practice.append(box);
  let answer="",count=0,correct=0;const pool="KMRSUAPTLOWIENF";
- const saved=JSON.parse(localStorage.getItem("bohemio-morse-reception-v1")||"null");if(saved&&Number.isInteger(saved.count)&&Number.isInteger(saved.correct)){count=saved.count;correct=saved.correct}progress.textContent="Historial local: "+correct+" aciertos de "+count+" series.";
+ let saved=null;try{saved=JSON.parse(localStorage.getItem("bohemio-morse-reception-v1")||"null")}catch{}if(saved&&Number.isInteger(saved.count)&&Number.isInteger(saved.correct)){count=saved.count;correct=saved.correct}progress.textContent="Historial local: "+correct+" aciertos de "+count+" series.";
  let session=0;
  async function play(){
   if(!answer)return;
