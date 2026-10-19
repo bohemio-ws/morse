@@ -28,10 +28,12 @@ if(practice){
  speed.oninput=()=>speedValue.textContent=speed.value+" PPM";
  const field=el("input","w-full p-3 text-white");field.placeholder="Escribe aquí los cinco caracteres";field.autocomplete="off";field.setAttribute("aria-label","Respuesta al dictado");
  const status=el("p","text-sm text-slate-400 mt-3","Pulsa Nueva serie.");
+ const progress=el("p","text-sm text-blue-300 mt-2","");
  const buttons=el("div","flex flex-wrap gap-3 mt-4");
  const newBtn=el("button","bento-card p-3","Nueva serie"),repeatBtn=el("button","bento-card p-3","Repetir audio"),checkBtn=el("button","bento-card p-3","Comprobar");
- buttons.append(newBtn,repeatBtn,checkBtn);box.append(speedLabel,speed,field,buttons,status);practice.append(box);
+ buttons.append(newBtn,repeatBtn,checkBtn);box.append(speedLabel,speed,field,buttons,status,progress);practice.append(box);
  let answer="",count=0,correct=0;const pool="KMRSUAPTLOWIENF";
+ const saved=JSON.parse(localStorage.getItem("bohemio-morse-reception-v1")||"null");if(saved&&Number.isInteger(saved.count)&&Number.isInteger(saved.correct)){count=saved.count;correct=saved.correct}progress.textContent="Historial local: "+correct+" aciertos de "+count+" series.";
  let session=0;
  async function play(){
   if(!answer)return;
@@ -64,6 +66,7 @@ if(practice){
   const submitted=field.value.toUpperCase().replace(/\s/g,"");
   if(!submitted){status.textContent="Escribe los caracteres escuchados.";return}
   count++;if(submitted===answer)correct++;
+  localStorage.setItem("bohemio-morse-reception-v1",JSON.stringify({count,correct}));progress.textContent="Historial local: "+correct+" aciertos de "+count+" series.";
   status.textContent=(submitted===answer?"Correcto. ":"Respuesta incorrecta. ")+"Serie: "+answer+". Aciertos: "+correct+"/"+count;
   answer="";
  };
