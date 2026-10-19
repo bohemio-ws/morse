@@ -3,7 +3,7 @@
 "use strict";
 const welcome=document.getElementById("academy-welcome");if(!welcome)return;
 const style=document.createElement("style");style.textContent=`
-.academy-brand-symbol{width:65px;height:65px;display:grid;place-items:center;background:#e8d1a4;color:#4a2d1a;border:3px double #987143;border-radius:6px;font:700 29px Georgia}
+.academy-brand-logo{width:65px;height:65px;object-fit:contain;background:#f7ecd6;padding:4px;border:2px solid #987143;border-radius:6px} .academy-brand-symbol{width:65px;height:65px;display:grid;place-items:center;background:#e8d1a4;color:#4a2d1a;border:3px double #987143;border-radius:6px;font:700 29px Georgia}
 .academy-hero{background:linear-gradient(105deg,#f9edce,#e6cda1);border:2px solid #9d7646;border-radius:6px;padding:clamp(20px,4vw,40px);margin-bottom:25px;position:relative}
 .academy-hero .eyebrow{font-size:13px;font-weight:bold;letter-spacing:.12em;text-transform:uppercase;color:#83512d}
 .academy-hero h1{font:700 clamp(32px,5vw,57px) Georgia!important;color:#3e2919!important;line-height:1.08;margin:12px 0}
