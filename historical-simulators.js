@@ -50,7 +50,7 @@ for(const m of modes){const b=document.createElement("button");b.type="button";b
 async function play(){
  if(!target||playing)return;
  const thisRun=++run;playing=true;feedback.textContent="Transmisión en curso…";meta.textContent=active.subtitle;
- const dot=110; // 1200/11 ≈ 11 palabras por minuto para principiantes.
+ const dot=level===1?150:level===2?120:95; // Intervalo del punto; aumenta gradualmente la velocidad.
  if(active.kind==="sound"){const C=window.AudioContext||window.webkitAudioContext;if(!C){feedback.textContent="Este navegador no admite audio.";playing=false;return}audioCtx=audioCtx||new C();try{await audioCtx.resume()}catch{playing=false;return}}
  async function mark(units){if(thisRun!==run)return;const ms=dot*units;
  if(active.kind==="light"){device.classList.add("on")}else{
