@@ -55,8 +55,6 @@ function updateLevel(){stop();target="";lastAnswer="";answerInput.value="";feedb
 levelSelect.addEventListener("change",updateLevel);
 try{score=JSON.parse(localStorage.getItem("bohemio-morse-scenes-v1")||"{}")||{}}catch{score={}}
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
-const levelWords={rail:[["T","E","A","N","I","M"],["TREN","VIA","SALIDA"],["ESTACION","LLEGADA"]],air:[["A","N","S","O","R","K"],["BASE","RADIO","PISTA"],["NORTE","ALFA"]],sea:[["S","O","E","T","A","N"],["SOS","MAR","LUZ"],["BARCO","AYUDA"]]};
-let level=1;
 function stop(){run++;playing=false;device.classList.remove("on");oscillators.forEach(o=>{try{o.stop()}catch{}});oscillators=[]}
 function select(mode){stop();active=mode;target="";lastAnswer="";answerInput.value="";feedback.textContent="";title.textContent=mode.icon+" "+mode.name;description.textContent=mode.description;device.className="scene-device "+(mode.id==="rail"?"telegraph-visual":mode.id==="air"?"radio-visual":"lamp-visual");meta.textContent=mode.subtitle+" · Pulsa Nueva transmisión.";Array.from(tabs.children).forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.mode===mode.id)))}
 for(const m of modes){const b=document.createElement("button");b.type="button";b.dataset.mode=m.id;b.textContent=m.icon+" "+m.name;b.onclick=()=>select(m);tabs.append(b)}
@@ -73,11 +71,11 @@ async function play(){
  const letters=target.split("");for(let j=0;j<letters.length&&thisRun===run;j++){const symbols=alphabet[letters[j]];if(!symbols)continue;for(let k=0;k<symbols.length&&thisRun===run;k++){await mark(symbols[k]==="."?1:3);if(k<symbols.length-1)await sleep(dot)}if(j<letters.length-1)await sleep(dot*3)}
  if(thisRun===run){playing=false;feedback.textContent="Fin de la transmisión. Escribe lo que has recibido."}
 }
-q("#historic-level").addEventListener("change",e=>{level=Number(e.target.value);stop();target="";answerInput.value="";feedback.textContent="Nivel "+level+" seleccionado. Pulsa Nueva transmisión."});
-q(".scene-new").onclick=()=>{stop();const choices=levelWords[active.id][level-1];target=choices[Math.floor(Math.random()*choices.length)];answerInput.value="";feedback.textContent="";play()};
+
+q(".scene-new").onclick=()=>{stop();const choices=levels[Number(levelSelect.value)].pool[active.id];target=choices[Math.floor(Math.random()*choices.length)];lastAnswer="";answerInput.value="";feedback.textContent="";play()};
 q(".scene-repeat").onclick=()=>{if(!target){feedback.textContent="Primero inicia una transmisión.";return}if(!playing)play()};
 q(".scene-stop").onclick=()=>{stop();feedback.textContent="Transmisión detenida."};
-q(".scene-check").onclick=()=>{if(!target){feedback.textContent="Primero inicia una transmisión.";return}if(playing){feedback.textContent="Espera al final de la transmisión.";return}const received=answerInput.value.trim().toUpperCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/\s+/g,"");if(!received){feedback.textContent="Escribe tu respuesta antes de comprobar.";return}if(lastAnswer===target){feedback.textContent="Ya has corregido este ejercicio. Pulsa Nueva transmisión.";return}lastAnswer=target;const ok=received===target;const scoreKey=active.id+"-"+levelSelect.value;const s=score[scoreKey]||{total:0,correct:0};s.total++;if(ok)s.correct++;score[scoreKey]=s;try{localStorage.setItem("bohemio-morse-scenes-v1",JSON.stringify(score))}catch{}feedback.textContent=(ok?"¡Correcto!":"Respuesta: "+target+". Sigue practicando.")+" · Aciertos en este escenario: "+s.correct+"/"+s.total;target=""};
+q(".scene-check").onclick=()=>{if(!target){feedback.textContent="Primero inicia una transmisión.";return}if(playing){feedback.textContent="Espera al final de la transmisión.";return}const received=answerInput.value.trim().toUpperCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/\s+/g,"");if(!received){feedback.textContent="Escribe tu respuesta antes de comprobar.";return}const ok=received===target;const scoreKey=active.id+"-"+levelSelect.value;const s=score[scoreKey]||{total:0,correct:0};s.total++;if(ok)s.correct++;score[scoreKey]=s;try{localStorage.setItem("bohemio-morse-scenes-v1",JSON.stringify(score))}catch{}feedback.textContent=(ok?"¡Correcto!":"Respuesta: "+target+". Sigue practicando.")+" · Aciertos en este escenario: "+s.correct+"/"+s.total;target=""};
 answerInput.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();q(".scene-check").click()}});
 select(modes[0]);updateLevel();
 })();
