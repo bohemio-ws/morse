@@ -14,7 +14,10 @@ if(lab){
  const input=el("textarea","w-full p-4 rounded bg-slate-950 text-white mono border border-slate-700");
  input.rows=3;input.placeholder="... --- ... / .... --- .-.. .-";input.setAttribute("aria-label","Código Morse");
  const output=el("p","mono text-xl text-blue-200 mt-4");output.setAttribute("aria-live","polite");
- input.addEventListener("input",()=>output.textContent=decode(input.value));\n const keys=el("div","flex flex-wrap gap-3 mt-3");\n for(const [symbol,label] of [[".","● Punto"],["-","▬ Raya"],[" ","Separar letra"],[" / ","Separar palabra"]]){const b=el("button","bento-card p-3",label);b.type="button";b.addEventListener("click",()=>{input.value+=symbol;output.textContent=decode(input.value);input.focus()});keys.append(b)}\n box.append(keys);
+ input.addEventListener("input",()=>output.textContent=decode(input.value));
+ const keys=el("div","flex flex-wrap gap-3 mt-3");
+ for(const [symbol,label] of [[".","● Punto"],["-","▬ Raya"],[" ","Separar letra"],[" / ","Separar palabra"]]){const b=el("button","bento-card p-3",label);b.type="button";b.addEventListener("click",()=>{input.value+=symbol;output.textContent=decode(input.value);input.focus()});keys.append(b)}
+ box.append(keys);
  box.append(input,output);lab.append(box);
 }
 const practice=document.getElementById("screen-practice");
