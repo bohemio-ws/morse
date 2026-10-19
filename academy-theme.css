@@ -1,0 +1,30 @@
+/* Bohemio Academy · diseño adaptable 2026 */
+:root{--bg:#07111f;--surface:#101f33;--border:#2b4058;--accent:#65b8ff;--text-muted:#b2c3d6}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:radial-gradient(circle at 75% 0%,#152b48 0%,#07111f 52%) fixed;color:#f5f8fc}
+header{position:sticky;top:0;z-index:50;background:rgba(7,17,31,.95)!important;border-bottom:1px solid #2b4058!important;backdrop-filter:blur(12px)}
+header>.container{max-width:1180px;padding:12px 20px;gap:16px}
+header nav{display:flex;flex-wrap:wrap;justify-content:center;gap:8px!important}
+.nav-link{border:1px solid #2c4561;border-radius:10px;padding:11px 13px;font-size:12px;letter-spacing:.04em;color:#d1e0ef;background:#10243a}
+.nav-link.active,.nav-link:hover{background:#1e4972;border-color:#72baff;color:#fff}
+.nav-link.active:after{display:none}
+main.container{max-width:1160px;padding:30px 18px 60px}
+#screen-guide,#screen-learn,#screen-practice,#screen-lab{max-width:100%}
+#screen-guide>div:first-child{background:linear-gradient(120deg,#123456,#0b1b30);border:1px solid #345575;border-left:4px solid #65b8ff;border-radius:16px;padding:25px;margin-bottom:24px}
+#screen-guide>div:first-child h2{font-size:clamp(26px,4vw,42px);font-weight:700}
+.bento-card{background:#102137;border:1px solid #30465e;border-radius:16px;box-shadow:0 6px 22px #0002;overflow-wrap:anywhere}
+.bento-card:hover{background:#132840;border-color:#538bb9}
+.guide-text{font-size:15px;color:#c6d5e5;line-height:1.75}
+.guide-h3{color:#8bcaff;font-size:13px}
+#screen-guide>article{margin-top:28px;max-width:100%;padding:clamp(18px,3vw,34px)}
+#screen-guide>article h4{color:#fff;font-size:16px}
+#screen-guide>article p{max-width:78ch}
+#screen-guide .grid{min-width:0}
+button{touch-action:manipulation}
+button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid #8bcaff;outline-offset:3px}
+textarea,input{max-width:100%;font-size:16px}
+textarea{background:#08182a!important;border:1px solid #46617c!important;border-radius:12px;min-height:105px}
+#screen-practice input:not([type=range]),#screen-lab input:not([type=range]){padding:12px;border:1px solid #46617c!important;border-radius:10px;background:#09182a!important}
+#screen-practice button,#screen-lab button{cursor:pointer}
+@media(max-width:767px){header>.container{align-items:stretch}header>.container>div:first-child{justify-content:center}header nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%}.nav-link{min-height:44px;font-size:11px}main.container{padding:20px 12px 50px}#screen-guide>.grid{display:block}#screen-guide>.grid>div{margin-bottom:18px}#screen-guide .bento-card{padding:20px!important}#screen-guide>div:first-child{padding:18px}#screen-guide .guide-text{font-size:15px}.telegraph-key{width:128px;height:128px}}
