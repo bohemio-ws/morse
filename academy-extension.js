@@ -72,6 +72,21 @@ if(practice){
  };
  field.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();checkBtn.click()}});
 }
+
+// Ejercicios de transmisión: teclado Morse con respuesta por secuencia.
+if(lab){
+ const box=el("section","bento-card p-8 mt-8");
+ box.append(el("h3","text-xl text-blue-400 mb-3","Práctica de transmisión: convierte letras en pulsos"));
+ box.append(el("p","guide-text","Selecciona una letra, pulsa el manipulador del laboratorio y compara tu secuencia. Usa Borrar buffer antes de empezar."));
+ const target=el("p","text-4xl text-white mb-3 mono","?");
+ const hint=el("p","text-sm text-slate-400 mb-3","Pulsa Nueva letra.");
+ const controls=el("div","flex flex-wrap gap-3");
+ const next=el("button","bento-card p-3","Nueva letra"),check=el("button","bento-card p-3","Comprobar manipulador");
+ controls.append(next,check);box.append(target,hint,controls);lab.append(box);
+ let letter="";
+ next.onclick=()=>{const keys=Object.keys(alphabet).filter(c=>c!==" ");letter=keys[Math.floor(Math.random()*keys.length)];target.textContent=letter;hint.textContent="Transmite la letra con el manipulador y pulsa Comprobar.";if(typeof clearManual==="function")clearManual()};
+ check.onclick=()=>{if(!letter){hint.textContent="Pulsa Nueva letra.";return}const received=typeof sequence==="string"?sequence:"";hint.textContent=received===alphabet[letter]?"¡Correcto! "+letter+" = "+received:"Tu secuencia: "+(received||"vacía")+" · esperado: "+alphabet[letter]};
+}
 const guide=document.getElementById("screen-guide");
 if(guide){
  const box=el("article","bento-card p-8");
