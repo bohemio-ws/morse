@@ -341,7 +341,7 @@
                         <input type="text" id="input-text" placeholder="ENTRADA DE TEXTO CRIPTO..." class="w-full text-3xl font-light py-6 outline-none uppercase placeholder:text-slate-800 transition">
                     </div>
                     <div class="mt-8 min-h-[160px] flex flex-col justify-between bg-slate-950/50 p-6 rounded border border-slate-800/50">
-                        <div id="output-morse" class="mono text-3xl text-blue-100 break-all leading-loose tracking-tighter"></div>
+                        <div id="output-morse" class="mono text-3xl break-all leading-loose tracking-normal" style="color:#111827;background:#facc15;padding:14px;border-radius:10px;font-weight:800"></div>
                         <div class="flex gap-8 mt-12">
                             <button id="btn-play-translation" class="text-[10px] uppercase tracking-widest border border-slate-700 px-8 py-3 hover:bg-white hover:text-slate-950 transition font-bold">Emitir Pulso</button>
                             <button id="btn-copy-morse" class="text-[10px] uppercase tracking-widest text-slate-500 hover:text-white transition">Copiar Datos</button>
@@ -351,10 +351,26 @@
                 <div class="bento-card p-10 flex flex-col items-center justify-center text-center">
                     <h3 class="text-[10px] uppercase tracking-widest text-blue-400 mb-16 font-bold">Manipulador Manual de Señal</h3>
                     <button id="manual-key" class="telegraph-key focus:outline-none"><span class="text-[10px] uppercase tracking-widest opacity-20 font-bold">Signal</span></button>
-                    <div class="mt-16 h-12 flex items-center justify-center gap-4" id="manual-sequence-display"></div>
+                    <div class="mt-8 w-full rounded-xl p-4" style="background:#111827;color:#fef08a;border:2px solid #eab308">
+                        <p class="text-sm font-bold mb-2" style="color:#fef08a">SEÑAL ACTUAL</p>
+                        <div class="min-h-12 flex items-center justify-center gap-3" id="manual-sequence-display" aria-live="polite"></div>
+                        <p class="text-sm mt-3" style="color:#f8fafc">MENSAJE RECIBIDO</p>
+                        <div id="manual-decoded" class="mono text-2xl font-bold break-words" style="color:#ffffff" aria-live="polite">—</div>
+                    </div>
+                    <label class="block mt-5 text-sm font-bold" style="color:#f8fafc">Velocidad de manipulación: <span id="manual-wpm-value">12</span> PPM
+                        <input id="manual-wpm" type="range" min="5" max="25" value="12" class="w-full mt-2" aria-label="Velocidad del manipulador">
+                    </label>
+                    <p class="mt-3 text-sm leading-relaxed" style="color:#f8fafc">Mantén pulsado el manipulador: pulsación corta = punto; larga = raya. Pulsa «Cerrar letra» para empezar otra, o «Espacio» para separar palabras. Puedes trabajar despacio.</p>
+                    <div class="flex flex-wrap justify-center gap-2 mt-4">
+                        <button type="button" id="manual-dot" class="px-4 py-3 rounded-lg font-bold" style="background:#facc15;color:#111827">· PUNTO</button>
+                        <button type="button" id="manual-dash" class="px-4 py-3 rounded-lg font-bold" style="background:#facc15;color:#111827">— RAYA</button>
+                        <button type="button" id="manual-letter" class="px-4 py-3 rounded-lg font-bold" style="background:#2563eb;color:#fff">CERRAR LETRA</button>
+                        <button type="button" id="manual-word" class="px-4 py-3 rounded-lg font-bold" style="background:#2563eb;color:#fff">ESPACIO</button>
+                        <button type="button" id="manual-undo" class="px-4 py-3 rounded-lg font-bold" style="background:#475569;color:#fff">BORRAR ÚLTIMO</button>
+                    </div>
                     <div class="mt-8">
                         <p class="text-[10px] text-slate-600 uppercase tracking-widest mb-4">Control por [Espacio] o Tacto</p>
-                        <button onclick="clearManual()" class="text-[9px] text-slate-800 hover:text-red-400 uppercase tracking-widest transition">Borrar Buffer</button>
+                        <button onclick="clearManual()" class="text-sm font-bold px-4 py-2 rounded-lg" style="color:#ffffff;background:#991b1b">BORRAR TODO</button>
                     </div>
                 </div>
             </div>
@@ -472,56 +488,78 @@
         };
 
         const keyBtn = document.getElementById('manual-key');
-        let startTime = 0; let sequence = ""; let currentOsc = null;
-
+        let startTime = 0, sequence = "", decoded = "", currentOsc = null;
+        const manualWpm = document.getElementById('manual-wpm');
+        const dotUnit = () => 1200 / Number(manualWpm.value);
+        manualWpm.addEventListener('input', () => document.getElementById('manual-wpm-value').textContent = manualWpm.value);
         function startPulse() {
+            if (startTime) return;
             if (audio.state === 'suspended') audio.resume();
-            if (startTime !== 0) return;
-            startTime = Date.now();
+            startTime = performance.now();
             currentOsc = audio.createOscillator();
-            const g = audio.createGain();
-            currentOsc.type = 'sine'; currentOsc.frequency.setValueAtTime(freq, audio.currentTime);
-            g.gain.setValueAtTime(0.1, audio.currentTime); currentOsc.connect(g); g.connect(audio.destination);
-            currentOsc.start(); keyBtn.classList.add('key-active');
+            const gain = audio.createGain();
+            currentOsc.type = 'sine';
+            currentOsc.frequency.value = freq;
+            gain.gain.value = 0.1;
+            currentOsc.connect(gain);
+            gain.connect(audio.destination);
+            currentOsc.start();
+            keyBtn.classList.add('key-active');
         }
-
+        function addSymbol(symbol) { sequence += symbol; refreshManual(); }
         function endPulse() {
-            if (startTime === 0) return;
-            const dur = Date.now() - startTime;
-            if (currentOsc) { currentOsc.stop(); currentOsc.disconnect(); currentOsc = null; }
-            startTime = 0; keyBtn.classList.remove('key-active');
-            sequence += dur < 190 ? '.' : '-'; refreshManual();
+            if (!startTime) return;
+            const elapsed = performance.now() - startTime;
+            startTime = 0;
+            if (currentOsc) { try { currentOsc.stop(); } catch (_) {} currentOsc.disconnect(); currentOsc = null; }
+            keyBtn.classList.remove('key-active');
+            addSymbol(elapsed < 2 * dotUnit() ? '.' : '-');
         }
-
+        function closeLetter() {
+            if (!sequence) return;
+            decoded += REVERSE_DATA[sequence] || '¿';
+            sequence = '';
+            refreshManual();
+        }
+        function wordSpace() {
+            closeLetter();
+            if (decoded && !decoded.endsWith(' ')) decoded += ' ';
+            refreshManual();
+        }
         function refreshManual() {
             const display = document.getElementById('manual-sequence-display');
-            display.innerHTML = '';
-            for(let s of sequence) {
+            display.replaceChildren();
+            for (const symbol of sequence) {
                 const span = document.createElement('span');
-                span.className = "text-3xl font-light text-blue-400 mono";
-                span.innerText = s; display.appendChild(span);
+                span.textContent = symbol === '.' ? '●' : '━';
+                span.style.cssText = 'font-size:32px;font-weight:900;color:#facc15;line-height:1.4';
+                display.appendChild(span);
             }
-            const trans = REVERSE_DATA[sequence];
-            if (trans) {
-                const tag = document.createElement('span');
-                tag.className = "ml-6 px-3 py-1 bg-blue-500 text-white text-[10px] font-bold rounded uppercase animate-pulse";
-                tag.innerText = trans; display.appendChild(tag);
-            }
+            if (!sequence) display.textContent = 'Pulsa para transmitir';
+            document.getElementById('manual-decoded').textContent = decoded || '—';
         }
-
-        function clearManual() { sequence = ""; refreshManual(); }
-
-        keyBtn.addEventListener('mousedown', (e) => { e.preventDefault(); startPulse(); });
-        window.addEventListener('mouseup', endPulse);
-        keyBtn.addEventListener('touchstart', (e) => { e.preventDefault(); startPulse(); });
-        keyBtn.addEventListener('touchend', endPulse);
-
-        window.addEventListener('keydown', (e) => {
+        function clearManual() { sequence = ''; decoded = ''; refreshManual(); }
+        document.getElementById('manual-dot').addEventListener('click', () => addSymbol('.'));
+        document.getElementById('manual-dash').addEventListener('click', () => addSymbol('-'));
+        document.getElementById('manual-letter').addEventListener('click', closeLetter);
+        document.getElementById('manual-word').addEventListener('click', wordSpace);
+        document.getElementById('manual-undo').addEventListener('click', () => {
+            if (sequence) sequence = sequence.slice(0,-1);
+            else decoded = decoded.slice(0,-1);
+            refreshManual();
+        });
+        keyBtn.style.touchAction = 'none';
+        keyBtn.addEventListener('pointerdown', e => { e.preventDefault(); if (keyBtn.setPointerCapture) keyBtn.setPointerCapture(e.pointerId); startPulse(); });
+        keyBtn.addEventListener('pointerup', e => { e.preventDefault(); endPulse(); });
+        keyBtn.addEventListener('pointercancel', endPulse);
+        window.addEventListener('pointerup', endPulse);
+        window.addEventListener('keydown', e => {
             if (e.code === 'Space' && !e.repeat && !['INPUT','TEXTAREA','SELECT','BUTTON'].includes(document.activeElement.tagName) && !document.activeElement.isContentEditable) {
                 e.preventDefault(); startPulse();
             }
         });
-        window.addEventListener('keyup', (e) => { if (e.code === 'Space') endPulse(); });
+        window.addEventListener('keyup', e => { if (e.code === 'Space') endPulse(); });
+        refreshManual();
 
         // La pantalla inicial la controla learning-experience.js.
     </script>
