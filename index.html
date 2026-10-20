@@ -311,7 +311,7 @@
         <section id="screen-learn" class="hidden fade-in space-y-12">
             <div class="max-w-3xl">
                 <h2 class="text-4xl font-light tracking-tight mb-4 text-white">Morfología del Código</h2>
-                <p class="text-slate-400 text-sm">Biblioteca de firmas acústicas. Interactúa para análisis.</p>
+                <p class="text-sm" style="color:#352416;font-weight:700">Aprende las letras y los números: cada tarjeta muestra su señal Morse. Toca una tarjeta para escucharla.</p>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4" id="alphabet-grid"></div>
         </section>
@@ -428,8 +428,13 @@
             Object.entries(DATA_MORSE).forEach(([char, code]) => {
                 if (char === ' ') return;
                 const card = document.createElement('div');
-                card.className = "bento-card p-6 text-center cursor-pointer hover:bg-blue-900/10 active:scale-95";
-                card.innerHTML = `<div class="text-xl font-light mb-3 text-slate-100">${char}</div><div class="mono text-[10px] text-blue-400 font-bold">${code}</div>`;
+                card.className = "bento-card p-4 text-center cursor-pointer active:scale-95";
+                card.style.cssText = "background:#fff8e7;border:2px solid #8b5e34;border-radius:10px;min-height:108px;display:flex;flex-direction:column;justify-content:center;gap:8px;";
+                card.setAttribute('role','button');
+                card.setAttribute('tabindex','0');
+                card.setAttribute('aria-label',char+' en Morse: '+code);
+                card.innerHTML = `<div style="font-size:36px;font-weight:900;color:#241508;line-height:1.1">${char}</div><div class="mono" style="font-size:22px;font-weight:900;color:#1e3a8a;letter-spacing:3px;line-height:1.4">${code.replace(/\\./g,'●').replace(/-/g,'━')}</div><div style="font-size:11px;color:#60452a;font-weight:700">TOCAR PARA ESCUCHAR</div>`;
+                card.onkeydown = e => { if(e.key==='Enter'||e.key===' '){e.preventDefault();streamMorse(code);} };
                 card.onclick = () => streamMorse(code);
                 grid.appendChild(card);
             });
