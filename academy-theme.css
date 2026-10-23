@@ -30,6 +30,10 @@ main .border-slate-800,main .border-slate-700{border-color:#b79a73!important}
 #screen-guide>article h4{font-size:18px!important;margin-top:22px}
 #screen-guide>article p{max-width:80ch}
 #screen-guide .grid{min-width:0}
+#screen-lab label[for="manual-wpm"],#screen-lab label,#screen-lab label span,#screen-lab .bento-card>p,#screen-lab .bento-card>div>p{color:#523821!important}
+#manual-wpm-value{color:#523821!important}
+#screen-lab label.block.mt-5,#screen-lab label.block.mt-5 span{color:#523821!important}
+#screen-lab label.block.mt-5 + p{color:#523821!important}
 main button{cursor:pointer;touch-action:manipulation}
 main button:not(.telegraph-key){border:1px solid #966e3d!important;background:#ead2a4!important;color:#392818!important;border-radius:5px!important;font-family:Georgia,serif!important}
 main button:hover:not(.telegraph-key){background:#d9b87d!important}
