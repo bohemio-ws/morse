@@ -12,15 +12,16 @@ header .nav-link{font-family:Georgia,serif;letter-spacing:.03em;text-transform:n
 header .nav-link.active,header .nav-link:hover{background:#e8d3a9;color:#38271a!important;border-color:#f1d9a4}
 header .nav-link.active:after{display:none}
 main.container{max-width:1140px;margin:26px auto 55px;padding:clamp(16px,3vw,38px);background:linear-gradient(#f9efd7ed,#e7d4acef),repeating-linear-gradient(0deg,#754e1610 0 1px,transparent 2px 7px);border:9px solid #5b3a24;outline:2px solid #c79a5b;box-shadow:0 18px 60px #000b, inset 0 0 0 2px #a77c4c;border-radius:5px}
-main h2,main h3,main h4{font-family:Georgia,'Times New Roman',serif!important;color:#4a2e1a!important;letter-spacing:0!important}
+main,main *{text-shadow:none}
+main h1,main h2,main h3,main h4,main h5,main h6{font-family:Georgia,'Times New Roman',serif!important;color:#4a2e1a!important;letter-spacing:0!important}
 main h2{font-size:clamp(28px,4vw,45px)!important;font-weight:700!important}
-main p,main span,main li{color:#4e3c2c}
+main p,main span,main li,main label,main small,main strong,main b,main div{color:#4e3c2c}
 main .bento-card{background:linear-gradient(140deg,#fff9e9,#ecddbd);border:1px solid #b89a72;border-radius:5px;box-shadow:0 3px 9px #60452622;transition:border-color .15s}
 main .bento-card:hover{background:linear-gradient(140deg,#fff9e9,#ecddbd);border-color:#8e6238;box-shadow:0 3px 9px #60452633}
 main .guide-text{color:#574530!important;font-size:16px;line-height:1.75}
 main .guide-h3{color:#714520!important;font-size:15px;letter-spacing:.04em!important;text-transform:none}
 main .concept-highlight{color:#4a2c19}
-main .text-white,main .text-blue-400,main .text-blue-200,main .text-slate-400,main .text-slate-500,main .text-slate-600{color:#523821!important}
+main .text-white,main .text-blue-400,main .text-blue-200,main .text-slate-100,main .text-slate-200,main .text-slate-300,main .text-slate-400,main .text-slate-500,main .text-slate-600,main [class*="text-white"]{color:#523821!important}
 main .bg-slate-950\/50,main .bg-slate-950,main .bg-slate-900,main .bg-slate-800{background:#ead8b6!important}
 main .border-slate-800,main .border-slate-700{border-color:#b79a73!important}
 #screen-guide>div:first-child{background:linear-gradient(115deg,#f9efcf,#ead4a7);border:2px solid #b28a55;border-left:8px solid #7b4c2b;border-radius:3px;padding:24px;margin-bottom:25px;max-width:none}
@@ -40,4 +41,4 @@ main input[type=range]{accent-color:#83512a}
 .telegraph-key:after{content:"";position:absolute;top:8%;left:24%;width:45px;height:45px;background:radial-gradient(circle at 35% 25%,#2e241d,#100c09);border:5px solid #8e693e;border-radius:50%;box-shadow:0 3px 5px #0007;pointer-events:none}
 .telegraph-key:active,.telegraph-key.key-active{filter:brightness(1.15);transform:translateY(3px)}
 button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid #9d5c21;outline-offset:3px}
-@media(max-width:767px){header>.container{align-items:stretch}header>.container>div:first-child{justify-content:center}header nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%}header .nav-link{min-height:44px;padding:9px 7px;font-size:13px}main.container{margin:10px 7px 30px;padding:15px;border-width:5px}#screen-guide>.grid{display:block}#screen-guide>.grid>div{margin-bottom:15px}#screen-guide .bento-card{padding:19px!important}#screen-guide>div:first-child{padding:17px}main .guide-text{font-size:15px}.telegraph-key{width:135px;height:135px}}
+@media(max-width:767px){header{position:sticky;top:0}header>.container{padding:7px 8px!important;gap:6px!important;align-items:center!important;flex-direction:row!important;flex-wrap:wrap!important}header>.container>div:first-child{justify-content:flex-start!important;flex:1 1 auto;min-width:0}header>.container>div:first-child img{width:46px!important;height:46px!important}header>.container>div:first-child span{font-size:11px!important;line-height:1.15!important}header nav{display:flex!important;flex-wrap:nowrap!important;justify-content:flex-start!important;gap:5px!important;width:100%!important;overflow-x:auto!important;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:2px 0 3px}header nav::-webkit-scrollbar{display:none}header .nav-link{flex:0 0 auto!important;min-height:34px!important;padding:6px 9px!important;font-size:12px!important;white-space:nowrap!important;border-radius:4px}main.container{margin:7px 7px 30px;padding:15px;border-width:5px}#screen-guide>.grid{display:block}#screen-guide>.grid>div{margin-bottom:15px}#screen-guide .bento-card{padding:19px!important}#screen-guide>div:first-child{padding:17px}main .guide-text{font-size:15px}.telegraph-key{width:135px;height:135px}}
